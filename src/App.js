@@ -1,14 +1,25 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
+
 import GifList from  './componenets/GifList'
 import GifForm from './componenets/GifForm';
+
+import { fetchStart } from './actions.js';
+import { fetchSuccess } from './actions.js';
 
 import './App.css';
 
 function App(props) {
   const { loading, error } = props;
 
-
+  useEffect(()=> {
+    props.fetchStart();
+    axios.get("https://api.giphy.com/v1/gifs/search?api_key=ZZNZ4tPNLYI2oz7bBOmcvpQpyX3hyvAH&q=Biggie")
+      .then (res=>{
+        props.fetchSuccess(res.data.data);
+      })
+  }, []);
 
   return (
     <div className="App">
@@ -32,4 +43,5 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(App);
+
+export default connect(mapStateToProps, {fetchStart, fetchSuccess})(App);
