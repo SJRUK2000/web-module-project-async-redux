@@ -6,13 +6,19 @@ import GifForm from './componenets/GifForm';
 import './App.css';
 
 function App(props) {
-   const { loading, gifs } = props;
+  const { loading, error } = props;
+
+
+
   return (
     <div className="App">
       <h1>Search For Gifs</h1>
       <GifForm/>
       {
-        loading ? <h3>Loading on up!</h3> : <GifList gifs={gifs}/>
+        (error !== '') && <h3>error</h3>
+      }
+      {
+        loading ? <h3>Loading on up!</h3> : <GifList/>
         }
 
     </div>
@@ -21,8 +27,8 @@ function App(props) {
 
 const mapStateToProps = state => {
   return {
-    gifs: state.gifs,
-    loading: state.loading
+    loading: state.loading,
+    error: state.error  
   }
 }
 
