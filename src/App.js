@@ -12,7 +12,7 @@ function App(props) {
   const { loading, error, getGifs } = props;
 
   useEffect(()=> {
-    getGifs('Miku')
+    getGifs('')
   }, []);
 
   return (
